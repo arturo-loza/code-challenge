@@ -40,6 +40,18 @@
     left: 0;
 }
 
+.even-movie {
+    background: darkred;
+}
+
+.odd-movie, .special-movie {
+    background: darkgoldenrod;
+}
+
+.normal-movie {
+    background: black;
+}
+
 .movie-details {
     display: flex;
     justify-content: space-between;

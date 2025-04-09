@@ -1,0 +1,22 @@
+.option-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 0 20px;
+}
+
+.category {
+    flex: 1 0 60%;
+}
+
+.selectors {
+    flex: 1 0 40%;
+}
+
+.option-selector {
+    color: black;
+}
+
+.rule-selector, .language-selector {
+    padding-bottom: 10px;
+}
