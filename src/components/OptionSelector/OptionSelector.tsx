@@ -1,31 +1,42 @@
 import Select from "react-select";
 import { useState } from 'react';
+import { FormattedMessage, useIntl } from "react-intl";
+
 import './OptionSelector.css';
 
 const OptionSelector = props => {
     const [category, setCategory] = useState('Popular')
     const { handleRules, handleLanguage, rule, language } = props;
+    const intl = useIntl()
+    console.log('intl', intl)
 
     const ruleOptions = [
             // { value: '', label: 'Select...'},
-            { value: 'fibo', label: 'Fibonacci' },
-            { value: 'prime', label: 'Prime Numbers' },
-            { value: 'odd', label: 'Odd/Even' },
+            { value: 'fibo', label: intl.formatMessage({ id: 'movies.rules.fibo' }) },
+            { value: 'prime', label: intl.formatMessage({ id: 'movies.rules.prime' }) },
+            { value: 'odd', label: intl.formatMessage({ id: 'movies.rules.odd' }) },
         ]
 
     const languageOptions= [
-        { value: 'en', label: 'English' },
-        { value: 'es', label: 'Spanish' }
+        { value: 'en', label: intl.formatMessage({ id: 'movies.language.en' }) },
+        { value: 'es', label: intl.formatMessage({ id: 'movies.language.es' }) },
+        { value: 'fr', label: intl.formatMessage({ id: 'movies.language.fr' }) },
     ]
 
     return (
         <div className={'option-container'}>
             <div className={'category'}>
-                <b> Category: </b> {category}
+                <b>
+                    <FormattedMessage id='movies.category' />:
+                </b>
+                {' '}
+                {category}
             </div>
             <div className={'selectors selector-container'}>
                 <div className={'rule-selector'}>
-                    <span> Rules: </span>
+                    <span>
+                        <FormattedMessage id='movies.rules.label' />:
+                    </span>
                     <Select
                         className={'option-selector'}
                         options={ruleOptions}
@@ -33,7 +44,9 @@ const OptionSelector = props => {
                     />
                 </div>
                 <div className={'language-selector'}>
-                    <span> Language: </span>
+                    <span>
+                        <FormattedMessage id='movies.language.label' />:
+                    </span>
                     <Select
                         defaultValue={languageOptions[0]}
                         className={'option-selector'}

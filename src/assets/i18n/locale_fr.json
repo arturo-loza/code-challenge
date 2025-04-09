@@ -1,0 +1,12 @@
+{
+  "movies.title": "TOP Films",
+  "movies.category": "Catégorie",
+  "movies.rules.label": "Règles",
+  "movies.rules.fibo": "Fibonacci",
+  "movies.rules.prime": "Nombres premiers",
+  "movies.rules.odd": "Impair/Pair",
+  "movies.language.label": "Langue",
+  "movies.language.en": "Anglais",
+  "movies.language.es": "Espagnole",
+  "movies.language.fr": "Français"
+}

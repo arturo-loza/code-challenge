@@ -1,0 +1,12 @@
+{
+  "movies.title": "TOP Movies",
+  "movies.category": "Category",
+  "movies.rules.label": "Rules",
+  "movies.rules.fibo": "Fibonacci",
+  "movies.rules.prime": "Prime Numbers",
+  "movies.rules.odd": "Odd/Even",
+  "movies.language.label": "Language",
+  "movies.language.en": "English",
+  "movies.language.es": "Spanish",
+  "movies.language.fr": "French"
+}

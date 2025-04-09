@@ -8,12 +8,28 @@ import { useEffect, useState, useMemo } from 'react';
 
 import './Movies.css';
 
-const Movies = () => {
+const Movies = ({ handleLanguageChange }) => {
     const [movieList, setMovieList] = useState([]);
     const [originalMovieList, setOriginalMovieList] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [language, setLanguage] = useState('en');
     const [rule, setRule] = useState('');
+
+    const apiKey = '1b501bbda107113acc653f328a2e935d';
+
+    useEffect(() => {
+        const language = 'en';
+        apiService
+            .getMovies({
+                language,
+                apiKey,
+            })
+            .then((response) => {
+                setOriginalMovieList(response?.data?.results);
+                setMovieList(response?.data?.results);
+                setIsLoaded(true);
+            });
+    }, []);
 
     const oddMovies = useMemo(
         () => {
@@ -73,22 +89,6 @@ const Movies = () => {
         [originalMovieList]
     )
 
-
-    useEffect(() => {
-        const apiKey = '1b501bbda107113acc653f328a2e935d';
-        const language = 'en';
-        apiService
-            .getMovies({
-                language,
-                apiKey,
-            })
-            .then((response) => {
-                setOriginalMovieList(response?.data?.results);
-                setMovieList(response?.data?.results);
-                setIsLoaded(true);
-            });
-    }, []);
-
     const handleRules = ev => {
         setRule(ev.value)
         switch (ev.value) {
@@ -107,8 +107,20 @@ const Movies = () => {
     }
 
     const handleLanguage = ev => {
-        setLanguage(ev.value)
-        console.log('handleLanguage', ev)
+        const language = ev.value;
+        setIsLoaded(false);
+        setLanguage(language)
+        handleLanguageChange(ev.value)
+        apiService
+            .getMovies({
+                language,
+                apiKey,
+            })
+            .then((response) => {
+                setOriginalMovieList(response?.data?.results);
+                setMovieList(response?.data?.results);
+                setIsLoaded(true);
+            });
     }
 
     const Spinner = () => (
