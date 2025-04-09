@@ -1,0 +1,53 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    z-index: 999;
+}
+
+.modal-dialog {
+    width: 50%;
+    min-width: 360px;
+    padding: 1rem 2rem;
+    margin: 5rem auto auto;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    color: black;
+}
+
+.modal-closed {
+    opacity: 0;
+    z-index: -1;
+}
+
+.close-button {
+    color: #3A3A3A;
+    font-size: 16px;
+    background-color: transparent;
+    padding: 6px 12px;
+    margin: -6px -26px 10px;
+    float: right;
+    border: none;
+    cursor: pointer;
+}
+
+.movie-overview {
+    padding: 24px 0 12px;
+}
+
+.movie-overview img {
+    width: 100%;
+}
+
+.movie-overview h2 {
+    margin: 14px 0 10px;
+}
+
+.movie-overview p {
+    margin-top: 0;
+    text-align: justify;
+}

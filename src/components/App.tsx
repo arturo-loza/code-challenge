@@ -3,9 +3,9 @@ import { useState } from 'react';
 
 import Movies from "./Movies/Movies";
 
-import enJson from '../assets/i18n/locale_en.json'
-import esJson from '../assets/i18n/locale_es.json'
-import frJson from '../assets/i18n/locale_fr.json'
+import enJson from '../i18n/locale_en.json'
+import esJson from '../i18n/locale_es.json'
+import frJson from '../i18n/locale_fr.json'
 
 import './App.css';
 
@@ -13,7 +13,7 @@ const App = () => {
     const [locale, setLocale] = useState('en');
     const [messages, setMessages] = useState(enJson);
 
-    const handleLanguageChange = lang => {
+    const handleLanguageChange = (lang: string) => {
         setLocale(lang)
         switch (lang) {
             case 'es':

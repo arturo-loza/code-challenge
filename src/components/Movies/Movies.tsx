@@ -3,19 +3,27 @@ import apiService from '../../services/api.service';
 // Components
 import MovieItem from "./MovieItem";
 import Spinner from "./Spinner";
+import Modal from "../Modal/Modal";
 import OptionSelector from '../OptionSelector/OptionSelector'
 
 import { useEffect, useState, useMemo } from 'react';
 
 import './Movies.css';
 
-const Movies = ({ handleLanguageChange }) => {
+type Props = {
+    handleLanguageChange: (ev: any) => void
+};
+
+const Movies = (props: Props) => {
+    const { handleLanguageChange } = props;
     const [movieList, setMovieList] = useState([]);
     const [originalMovieList, setOriginalMovieList] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [language, setLanguage] = useState('en');
     const [rule, setRule] = useState('');
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(1);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [movieSelected, setMovieSelected] = useState({})
 
     const apiKey: string = '1b501bbda107113acc653f328a2e935d';
 
@@ -34,8 +42,8 @@ const Movies = ({ handleLanguageChange }) => {
 
     const oddMovies: any[] = useMemo(
         () => {
-            const sortedMovies = [];
-            originalMovieList.forEach((movie, index) => {
+            const sortedMovies: any[] = [];
+            originalMovieList.forEach((movie: object, index: number) => {
                 sortedMovies.push({
                     ...movie,
                     className: (index % 2 === 0) ? 'even-movie' : 'odd-movie'
@@ -49,7 +57,7 @@ const Movies = ({ handleLanguageChange }) => {
     const primeMovies: any[] = useMemo(
         () => {
             const sortedMovies = [];
-            originalMovieList.forEach((movie, index) => {
+            originalMovieList.forEach((movie: object, index: number) => {
                 let isPrime = index > 1;
                 for (let i = 2, s = Math.sqrt(index); i <= s; i++) {
                     if (index % i === 0) {
@@ -77,9 +85,9 @@ const Movies = ({ handleLanguageChange }) => {
 
     const fiboMovies: any[] = useMemo(
         () => {
-            const sortedMovies = [];
+            const sortedMovies: any[] = [];
             const fibo = fibonacci(movieList.length);
-            movieList.forEach((movie, index) => {
+            movieList.forEach((movie: object, index: number) => {
                 sortedMovies.push({
                     ...movie,
                     className: fibo.includes(index) ? 'special-movie' : 'normal-movie'
@@ -101,6 +109,10 @@ const Movies = ({ handleLanguageChange }) => {
     useEffect(() => {
         page > 1 && rule === 'fibo' && setMovieList(fiboMovies);
     }, [fiboMovies]);
+
+    const toggleModal = (toggle: boolean) => {
+        setIsModalOpen(toggle);
+    }
 
     const handleRules = (ev: any) => {
         setRule(ev.value)
@@ -153,16 +165,31 @@ const Movies = ({ handleLanguageChange }) => {
         }
     }
 
+    const handleMovieClick = (movie: any) => {
+        setMovieSelected(movie)
+        toggleModal(true);
+    }
+
     return (
         <>
+            <Modal
+                isOpen={isModalOpen}
+                toggleModal={toggleModal}
+                movie={movieSelected}
+            />
             <OptionSelector
                 handleRules={handleRules}
                 handleLanguage={handleLanguage}
-                rule={rule}
-                language={language}
             />
             <div className={'movies-container'}>
-                {isLoaded ? <MovieItem movieList={movieList} getMoreMovies={getMoreMovies} /> : <Spinner />}
+                {isLoaded
+                   ? <MovieItem
+                        movieList={movieList}
+                        getMoreMovies={getMoreMovies}
+                        handleMovieClick={handleMovieClick}
+                    />
+                   : <Spinner />
+                }
             </div>
         </>
     )

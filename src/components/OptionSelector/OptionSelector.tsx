@@ -4,9 +4,14 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import './OptionSelector.css';
 
-const OptionSelector = props => {
+type Props = {
+    handleRules: (ev: any) => void,
+    handleLanguage: (ev: any) => void
+}
+
+const OptionSelector = (props: Props) => {
     const [category, setCategory] = useState('Popular')
-    const { handleRules, handleLanguage, rule, language } = props;
+    const { handleRules, handleLanguage } = props;
     const intl = useIntl();
 
     const ruleOptions = [

@@ -3,15 +3,32 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import placeholder from '../../assets/placeholder.png'
 import Spinner from "./Spinner";
 
-const MovieItem = ({ movieList, getMoreMovies }) => {
+type Props = {
+    movieList: any[],
+    getMoreMovies: () => void,
+    handleMovieClick: (movie: any) => void
+};
+
+const MovieItem = (props: Props) => {
+    const { movieList, getMoreMovies, handleMovieClick } = props;
     const [loaded, setLoaded] = useState(false)
     const baseImgUrl = 'https://image.tmdb.org/t/p/w500'
 
+    const onMovieClick = (movie: any) => {
+        handleMovieClick(movie);
+    }
+
     const MovieMap = () => (
-        movieList.map((movie, index) => {
+        movieList.map((movie: any) => {
             const itemClass = movie.className ? 'movie-item ' + movie.className : 'movie-item';
             return (
-                <div key={movie.backdrop_path + index} className={itemClass}>
+                <div
+                    key={movie.id}
+                    className={itemClass}
+                    onClick={() => onMovieClick(movie)}
+                    role={'button'}
+                    tabIndex={0}
+                >
                     {!loaded && (
                         <img
                             className={'placeholder'}
