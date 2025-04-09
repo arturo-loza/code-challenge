@@ -8,10 +8,10 @@ const MovieItem = ({ movieList, getMoreMovies }) => {
     const baseImgUrl = 'https://image.tmdb.org/t/p/w500'
 
     const MovieMap = () => (
-        movieList.map(movie => {
+        movieList.map((movie, index) => {
             const itemClass = movie.className ? 'movie-item ' + movie.className : 'movie-item';
             return (
-                <div key={movie.id} className={itemClass}>
+                <div key={movie.backdrop_path + index} className={itemClass}>
                     {!loaded && (
                         <img
                             className={'placeholder'}

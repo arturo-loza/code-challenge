@@ -90,6 +90,18 @@ const Movies = ({ handleLanguageChange }) => {
         [originalMovieList]
     )
 
+    useEffect(() => {
+        page > 1 && rule === 'odd' && setMovieList(oddMovies);
+    }, [oddMovies]);
+
+    useEffect(() => {
+        page > 1 && rule === 'prime' && setMovieList(primeMovies);
+    }, [primeMovies]);
+
+    useEffect(() => {
+        page > 1 && rule === 'fibo' && setMovieList(fiboMovies);
+    }, [fiboMovies]);
+
     const handleRules = (ev: any) => {
         setRule(ev.value)
         switch (ev.value) {
@@ -125,7 +137,6 @@ const Movies = ({ handleLanguageChange }) => {
     }
 
     const getMoreMovies = (): void => {
-        console.log('length', movieList.length);
         if (movieList.length < 800) {
             setPage(page + 1);
             apiService
@@ -135,6 +146,7 @@ const Movies = ({ handleLanguageChange }) => {
                     page: page + 1
                 })
                 .then((response) => {
+                    setOriginalMovieList(originalMovieList.concat(response?.data?.results));
                     setMovieList(movieList.concat(response?.data?.results));
                     setIsLoaded(true);
                 });
