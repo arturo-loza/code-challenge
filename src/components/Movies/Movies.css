@@ -11,7 +11,8 @@
     background: black;
     margin: 0 15px 25px;
     border-radius: 10px;
-    box-shadow: 8px 4px 11px rgba(255, 255, 255, 0.15)
+    box-shadow: 8px 4px 11px rgba(255, 255, 255, 0.15);
+    position: relative;
 }
 
 .movie-item:hover {
@@ -19,8 +20,24 @@
 }
 
 .movie-poster {
-    max-width: 100%;
+    width: 100%;
     border-radius: 10px;
+    background: #2A2A2A;
+    opacity: 1;
+}
+
+.movie-poster-hidden {
+    width: 100%;
+    border-radius: 10px;
+    opacity: 0;
+}
+
+.placeholder {
+    width: 100%;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .movie-details {
@@ -30,13 +47,39 @@
 
 .movie-title {
     text-align: left;
-    font-size: 15px;
+    font-size: 14px;
     padding: 0 0 6px 6px;
 }
 
 .movie-year {
     text-align: right;
     padding: 0 6px 6px;
+}
+
+.spinner-container {
+    width: 100%;
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 992px) {
