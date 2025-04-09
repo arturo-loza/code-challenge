@@ -2,6 +2,7 @@ import apiService from '../../services/api.service';
 
 // Components
 import MovieItem from "./MovieItem";
+import Spinner from "./Spinner";
 import OptionSelector from '../OptionSelector/OptionSelector'
 
 import { useEffect, useState, useMemo } from 'react';
@@ -14,11 +15,11 @@ const Movies = ({ handleLanguageChange }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [language, setLanguage] = useState('en');
     const [rule, setRule] = useState('');
+    const [page, setPage] = useState(1)
 
-    const apiKey = '1b501bbda107113acc653f328a2e935d';
+    const apiKey: string = '1b501bbda107113acc653f328a2e935d';
 
-    useEffect(() => {
-        const language = 'en';
+    useEffect((): void => {
         apiService
             .getMovies({
                 language,
@@ -31,7 +32,7 @@ const Movies = ({ handleLanguageChange }) => {
             });
     }, []);
 
-    const oddMovies = useMemo(
+    const oddMovies: any[] = useMemo(
         () => {
             const sortedMovies = [];
             originalMovieList.forEach((movie, index) => {
@@ -45,7 +46,7 @@ const Movies = ({ handleLanguageChange }) => {
         [originalMovieList]
     )
 
-    const primeMovies = useMemo(
+    const primeMovies: any[] = useMemo(
         () => {
             const sortedMovies = [];
             originalMovieList.forEach((movie, index) => {
@@ -65,7 +66,7 @@ const Movies = ({ handleLanguageChange }) => {
         [originalMovieList]
     )
 
-    const fibonacci = length => {
+    const fibonacci = (length: number) => {
         let fibo = [0, 1];
         while (fibo[fibo.length - 1] < length) {
             const nextFibo = fibo[fibo.length - 1] + fibo[fibo.length - 2];
@@ -74,7 +75,7 @@ const Movies = ({ handleLanguageChange }) => {
         return fibo.slice(0, -1);
     };
 
-    const fiboMovies = useMemo(
+    const fiboMovies: any[] = useMemo(
         () => {
             const sortedMovies = [];
             const fibo = fibonacci(movieList.length);
@@ -89,7 +90,7 @@ const Movies = ({ handleLanguageChange }) => {
         [originalMovieList]
     )
 
-    const handleRules = ev => {
+    const handleRules = (ev: any) => {
         setRule(ev.value)
         switch (ev.value) {
             case 'odd':
@@ -106,7 +107,7 @@ const Movies = ({ handleLanguageChange }) => {
         }
     }
 
-    const handleLanguage = ev => {
+    const handleLanguage = (ev: any) => {
         const language = ev.value;
         setIsLoaded(false);
         setLanguage(language)
@@ -123,11 +124,22 @@ const Movies = ({ handleLanguageChange }) => {
             });
     }
 
-    const Spinner = () => (
-      <div className={'spinner-container'}>
-          <div className={'spinner'} />
-      </div>
-    );
+    const getMoreMovies = (): void => {
+        console.log('length', movieList.length);
+        if (movieList.length < 800) {
+            setPage(page + 1);
+            apiService
+                .getMovies({
+                    language,
+                    apiKey,
+                    page: page + 1
+                })
+                .then((response) => {
+                    setMovieList(movieList.concat(response?.data?.results));
+                    setIsLoaded(true);
+                });
+        }
+    }
 
     return (
         <>
@@ -138,7 +150,7 @@ const Movies = ({ handleLanguageChange }) => {
                 language={language}
             />
             <div className={'movies-container'}>
-                {isLoaded ? <MovieItem movieList={movieList} /> : <Spinner />}
+                {isLoaded ? <MovieItem movieList={movieList} getMoreMovies={getMoreMovies} /> : <Spinner />}
             </div>
         </>
     )

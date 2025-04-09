@@ -15,6 +15,7 @@
     "axios": "^1.7.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-intl": "^7.1.10",
     "react-select": "^5.10.1"
   },

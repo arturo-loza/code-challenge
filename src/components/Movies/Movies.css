@@ -1,4 +1,4 @@
-.movies-container {
+.movies-container, .infinite-scroll-component {
     width: 100%;
     display: flex;
     flex-wrap: wrap;

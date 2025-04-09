@@ -7,8 +7,7 @@ import './OptionSelector.css';
 const OptionSelector = props => {
     const [category, setCategory] = useState('Popular')
     const { handleRules, handleLanguage, rule, language } = props;
-    const intl = useIntl()
-    console.log('intl', intl)
+    const intl = useIntl();
 
     const ruleOptions = [
             // { value: '', label: 'Select...'},
