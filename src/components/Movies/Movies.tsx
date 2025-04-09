@@ -16,7 +16,7 @@ type Props = {
 
 const Movies = (props: Props) => {
     const { handleLanguageChange } = props;
-    const [movieList, setMovieList] = useState([]);
+    const [movieList, setMovieList] = useState<any[]>([]);
     const [originalMovieList, setOriginalMovieList] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [language, setLanguage] = useState('en');
@@ -56,7 +56,7 @@ const Movies = (props: Props) => {
 
     const primeMovies: any[] = useMemo(
         () => {
-            const sortedMovies = [];
+            const sortedMovies: any[] = [];
             originalMovieList.forEach((movie: object, index: number) => {
                 let isPrime = index > 1;
                 for (let i = 2, s = Math.sqrt(index); i <= s; i++) {

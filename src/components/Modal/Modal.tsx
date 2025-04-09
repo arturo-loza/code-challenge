@@ -2,6 +2,8 @@ import {ReactNode, useState} from "react";
 import {createPortal} from "react-dom";
 import classNames from 'classnames';
 
+import { FormattedMessage } from "react-intl";
+
 import './Modal.css';
 
 type Props = {
@@ -42,11 +44,15 @@ const Modal = (props: Props) => {
                         <table>
                         <tbody>
                             <tr>
-                                <td> <b> Release Date: </b> </td>
+                                <td><b>
+                                    <FormattedMessage id='movies.modal.date' />:
+                                </b></td>
                                 <td> { movie.release_date} </td>
                             </tr>
                             <tr>
-                                <td> <b> Vote Average: </b></td>
+                                <td><b>
+                                    <FormattedMessage id='movies.modal.vote' />:
+                                </b></td>
                                 <td> { movie.vote_average} </td>
                             </tr>
                         </tbody>

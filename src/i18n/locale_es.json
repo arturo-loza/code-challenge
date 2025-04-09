@@ -8,5 +8,7 @@
   "movies.language.label": "Lenguaje",
   "movies.language.en": "Inglés",
   "movies.language.es": "Español",
-  "movies.language.fr": "Frances"
+  "movies.language.fr": "Frances",
+  "movies.modal.date": "Fecha de Lanzamiento",
+  "movies.modal.vote": "Voto Promedio"
 }
