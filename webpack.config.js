@@ -21,12 +21,28 @@ module.exports = {
             : `images/[path][contenthash:8][ext]`,
         crossOriginLoading: "anonymous",
     },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js'],
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: "public/index.html",
             filename: "index.html",
         }),
     ],
+    module: {
+        rules: [
+            {
+                test: /\.(ts|tsx)$/,
+                exclude: /node_modules/,
+                use: 'ts-loader',
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader', 'postcss-loader'],
+            },
+        ],
+    },
     devServer: {
         port: port,
         static: {
