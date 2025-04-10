@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import placeholder from '../../assets/placeholder.png'
 import Spinner from "./Spinner";
 
-type Props = {
+interface Props {
     movieList: any[],
     getMoreMovies: () => void,
     handleMovieClick: (movie: any) => void

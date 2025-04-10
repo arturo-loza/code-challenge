@@ -10,7 +10,7 @@ import { useEffect, useState, useMemo } from 'react';
 
 import './Movies.css';
 
-type Props = {
+interface Props {
     handleLanguageChange: (ev: any) => void
 };
 

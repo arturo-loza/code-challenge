@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import './OptionSelector.css';
 
-type Props = {
+interface Props {
     handleRules: (ev: any) => void,
     handleLanguage: (ev: any) => void
 }

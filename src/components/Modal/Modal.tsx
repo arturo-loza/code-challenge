@@ -6,7 +6,7 @@ import { FormattedMessage } from "react-intl";
 
 import './Modal.css';
 
-type Props = {
+interface Props {
     isOpen: boolean,
     movie: any,
     toggleModal: (toggle: boolean) => void,
