@@ -1,10 +1,13 @@
-import apiService from '../../services/api.service';
+import apiService from '../../api/HttpClient';
 
 // Components
 import MovieItem from "./MovieItem";
 import Spinner from "./Spinner";
 import Modal from "../Modal/Modal";
 import OptionSelector from '../OptionSelector/OptionSelector'
+import  type { IMovie } from "../../repositories/MovieRepository";
+import MovieRepository from "../../repositories/MovieRepository";
+import { MOVIE_DB_APIKEY } from '../../constants/constants';
 
 import { useEffect, useState, useMemo } from 'react';
 
@@ -12,7 +15,7 @@ import './Movies.css';
 
 interface Props {
     handleLanguageChange: (ev: any) => void
-};
+}
 
 const Movies = (props: Props) => {
     const { handleLanguageChange } = props;
@@ -23,16 +26,19 @@ const Movies = (props: Props) => {
     const [rule, setRule] = useState('');
     const [page, setPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [movieSelected, setMovieSelected] = useState({})
+    const [movieSelected, setMovieSelected] = useState({});
+    const [category, setCategory] = useState('popular')
 
-    const apiKey: string = '1b501bbda107113acc653f328a2e935d';
+    const getParams = (category: string, language: string, page?: number): object => ({
+        category,
+        language,
+        page,
+        apiKey: MOVIE_DB_APIKEY,
+    })
 
     useEffect((): void => {
-        apiService
-            .getMovies({
-                language,
-                apiKey,
-            })
+        MovieRepository
+            .getAllMovies(getParams(category, language, page))
             .then((response) => {
                 setOriginalMovieList(response?.data?.results);
                 setMovieList(response?.data?.results);
@@ -134,13 +140,25 @@ const Movies = (props: Props) => {
     const handleLanguage = (ev: any) => {
         const language = ev.value;
         setIsLoaded(false);
-        setLanguage(language)
-        handleLanguageChange(ev.value)
-        apiService
-            .getMovies({
-                language,
-                apiKey,
-            })
+        setLanguage(language);
+        setPage(1);
+        handleLanguageChange(ev.value);
+        MovieRepository
+            .getAllMovies(getParams(category, language, 1))
+            .then((response) => {
+                setOriginalMovieList(response?.data?.results);
+                setMovieList(response?.data?.results);
+                setIsLoaded(true);
+            });
+    }
+
+    const handleCategory = (ev: any) => {
+        const category = ev.value;
+        setIsLoaded(false);
+        setCategory(category);
+        setPage(1);
+        MovieRepository
+            .getAllMovies(getParams(category, language, 1))
             .then((response) => {
                 setOriginalMovieList(response?.data?.results);
                 setMovieList(response?.data?.results);
@@ -151,12 +169,8 @@ const Movies = (props: Props) => {
     const getMoreMovies = (): void => {
         if (movieList.length < 800) {
             setPage(page + 1);
-            apiService
-                .getMovies({
-                    language,
-                    apiKey,
-                    page: page + 1
-                })
+            MovieRepository
+                .getAllMovies(getParams(category, language, page + 1 ))
                 .then((response) => {
                     setOriginalMovieList(originalMovieList.concat(response?.data?.results));
                     setMovieList(movieList.concat(response?.data?.results));
@@ -180,6 +194,7 @@ const Movies = (props: Props) => {
             <OptionSelector
                 handleRules={handleRules}
                 handleLanguage={handleLanguage}
+                handleCategory={handleCategory}
             />
             <div className={'movies-container'}>
                 {isLoaded

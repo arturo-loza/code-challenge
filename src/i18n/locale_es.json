@@ -10,5 +10,9 @@
   "movies.language.es": "Español",
   "movies.language.fr": "Frances",
   "movies.modal.date": "Fecha de Lanzamiento",
-  "movies.modal.vote": "Voto Promedio"
+  "movies.modal.vote": "Voto Promedio",
+  "movies.category.popular": "Popular",
+  "movies.category.top_rated": "Mejor Valoradas",
+  "movies.category.upcoming": "Proximamente",
+  "movies.category.now_playing": "Reproduciendo Ahora"
 }

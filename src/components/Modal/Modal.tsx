@@ -3,6 +3,7 @@ import {createPortal} from "react-dom";
 import classNames from 'classnames';
 
 import { FormattedMessage } from "react-intl";
+import { BASE_IMG_URL } from '../../constants/constants';
 
 import './Modal.css';
 
@@ -13,7 +14,6 @@ interface Props {
 }
 const Modal = (props: Props) => {
     const { isOpen, movie, toggleModal } = props
-    const baseImgUrl = 'https://image.tmdb.org/t/p/w500'
 
     const modalClass = classNames(
         'modal-overlay',
@@ -38,7 +38,7 @@ const Modal = (props: Props) => {
                 {closeButton}
                 {movie && (
                     <div className={'movie-overview'}>
-                        <img src={baseImgUrl + movie?.backdrop_path} />
+                        <img src={BASE_IMG_URL + movie?.backdrop_path} />
                         <h2>{movie.title?.toUpperCase()}</h2>
                         <p>{movie.overview}</p>
                         <table>

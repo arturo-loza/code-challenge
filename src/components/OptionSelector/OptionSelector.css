@@ -1,22 +1,32 @@
 .option-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    //justify-content: space-between;
     padding: 0 0 20px;
 }
 
-.category {
-    flex: 1 0 60%;
-}
-
 .selectors {
-    flex: 1 0 40%;
+    flex: 1 0 33%;
 }
 
 .option-selector {
     color: black;
+    padding-bottom: 10px;
+    max-width: 320px;
+    padding-right: 20px;
 }
 
-.rule-selector, .language-selector {
-    padding-bottom: 10px;
+@media (max-width: 768px) {
+    .option-container {
+        flex-wrap: wrap;
+    }
+
+    .selectors {
+        flex: 1 0 100%;
+    }
+
+    .option-selector {
+        max-width: 760px;
+        padding-right: 0;
+    }
 }

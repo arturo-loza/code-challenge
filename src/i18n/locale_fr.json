@@ -10,5 +10,9 @@
   "movies.language.es": "Espagnole",
   "movies.language.fr": "Français",
   "movies.modal.date": "Date de sortie",
-  "movies.modal.vote": "Vote Moyen"
+  "movies.modal.vote": "Vote Moyen",
+  "movies.category.popular": "Populaire",
+  "movies.category.top_rated": "Les mieux notés",
+  "movies.category.upcoming": "Prochain",
+  "movies.category.now_playing": "En cours de lecture"
 }

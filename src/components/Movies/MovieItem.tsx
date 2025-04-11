@@ -1,7 +1,9 @@
 import { useState } from "react";
+
 import InfiniteScroll from 'react-infinite-scroll-component';
 import placeholder from '../../assets/placeholder.png'
 import Spinner from "./Spinner";
+import { BASE_IMG_URL } from '../../constants/constants';
 
 interface Props {
     movieList: any[],
@@ -12,7 +14,6 @@ interface Props {
 const MovieItem = (props: Props) => {
     const { movieList, getMoreMovies, handleMovieClick } = props;
     const [loaded, setLoaded] = useState(false)
-    const baseImgUrl = 'https://image.tmdb.org/t/p/w500'
 
     const onMovieClick = (movie: any) => {
         handleMovieClick(movie);
@@ -39,7 +40,7 @@ const MovieItem = (props: Props) => {
                     <img
                         alt={'movie poster'}
                         className={loaded ? 'movie-poster' : 'movie-poster-hidden'}
-                        src={baseImgUrl + movie.poster_path}
+                        src={BASE_IMG_URL + movie.poster_path}
                         loading="lazy"
                         onLoad={() => setLoaded(true)}
                     />
